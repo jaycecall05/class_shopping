@@ -21,7 +21,7 @@ function loadEventListeners() {
     clearCartBtn.addEventListener('click', clearCart);
 
     // document Ready
-    document.addEventListener('DOMContentLoaded', getCoursesFromStorage);
+    document.addEventListener('DOMContentLoaded', getFromLocalStorage);
 }
 
 
@@ -57,7 +57,7 @@ function addIntoCart(course) {
     row.innerHTML = ` 
         <tr>
             <td>
-                <img src="${course.image}">
+                <img src="${course.image}" width=100>
         </td> 
         <td>${course.title}</td>
          <td>${course.price}</td> 
@@ -110,11 +110,19 @@ function removeCourse(e) {
 // clears cart
 function clearCart() {
     shoppingCartContent.innerHTML = '';
+
+
+    // clear from storage
+    clearLocalStorage();
+}
+
+function clearLocalStorage() {
+    localStorage.clear();
 }
 
 // loads when doc is ready and print courses to cart
 
-function getCoursesFromStorage() {
+function getFromLocalStorage() {
     let coursesLS = getCoursesFromStorage();
 
     // loop throught the courses and print in cart
@@ -124,7 +132,7 @@ function getCoursesFromStorage() {
         row.innerHTML = `
             <tr>
                 <td>
-                    <img src=${course.image}" width=100>
+                    <img src="${course.image}" width=100>
                 </td>
                 <td>${course.title}</td>
                 <td>${course.price}</td>
@@ -134,5 +142,6 @@ function getCoursesFromStorage() {
             </tr>
         
         `;
+        shoppingCartContent.appendChild(row);
     });
 }
